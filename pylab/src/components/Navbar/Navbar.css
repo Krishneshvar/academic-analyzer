@@ -1,4 +1,16 @@
 nav {
     padding: 1rem !important;
-    background-color: #03346E !important;
+    background-color: #2E4F4F !important;
+    height: 10dvh;
+    border-bottom: 1px solid grey;
+}
+
+nav img {
+    height: 3.5rem;
+    width: 3.5rem;
+}
+
+.name {
+    font-weight: 900;
+    font-size: 1.5rem !important;
 }
