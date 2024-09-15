@@ -1,5 +1,12 @@
 .code-editor {
     padding: 1rem;
-    border-radius: 1rem;
-    width: 50dvw;
+    width: 50%;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+    padding: 0.5rem;
 }

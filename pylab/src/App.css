@@ -48,6 +48,8 @@
   width: 5rem;
 }
 
+.choices h1 { text-align: center; }
+
 .choice-content {
   display: flex;
   flex-direction: row;

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import CodeEditor from "./CodeEditor"
 
-function DecisionTree() {
+function SupportVector() {
     const [fileContent, setPythonFileContent] = useState('');
 
     useEffect(() => {
-        fetch('/Algorithms/DecisionTree.py')
+        fetch('/Algorithms/SupportVector.py')
         .then((response) => {
             if (response.ok) {
             return response.text();
@@ -22,9 +22,9 @@ function DecisionTree() {
 
     return(
         <>
-            <CodeEditor code={fileContent} fileName={"DecisionTree.py"}/>
+        <CodeEditor code={fileContent} />
         </>
     )
 }
 
-export default DecisionTree
+export default SupportVector

@@ -1,24 +1,30 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Editor } from '@monaco-editor/react'
 import './CodeEditor.css'
 
-function CodeEditor() {
+function CodeEditor({ code, fileName }) {
     const editorRef = useRef();
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(code || '');
 
     const onMount = (editor) => {
         editorRef.current = editor;
         editor.focus();
     }
 
+    useEffect(() => {
+        setValue(code);
+    }, [code]);
+
     return(
         <>
         <div className="code-editor">
+            <div className='info'>
+                <p> { fileName } </p>
+            </div>
             <Editor 
-                height='80dvh'
+                height='75dvh'
                 theme='vs-dark'
                 defaultLanguage='python'
-                defaultValue='# some comment'
                 value={value}
                 onChange={(value) => setValue(value)}
                 onMount={onMount}
