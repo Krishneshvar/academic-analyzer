@@ -48,7 +48,7 @@ function App() {
         </div>
       </div>
       <div className="compare">
-        <Link to={`/support-vector`} style={{ textDecoration: 'none', color: 'white'}}>
+        <Link to={`/comparison`} style={{ textDecoration: 'none', color: 'white'}}>
           <button className="compare-btn"> Compare </button>
         </Link>
       </div>

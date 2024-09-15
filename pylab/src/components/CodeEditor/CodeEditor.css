@@ -1,7 +1,35 @@
 .code-editor {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     padding: 1rem;
-    width: 50%;
 }
+
+.info p, .info .run-btn { width: 50%; }
+
+.run-btn button {
+    padding: 0.5rem 1.5rem;
+    margin-left: 1rem;
+    border: none;
+    border-radius: 1rem;
+    background-color: #0E8388;
+    color: white;
+}
+
+.code-area {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+}
+
+.code-display {
+    width: 50%;
+    border: 1px solid gray;
+    box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
+}
+
+.output-display { width: 50%; }
 
 .info {
     display: flex;
@@ -10,3 +38,13 @@
     color: white;
     padding: 0.5rem;
 }
+
+@media screen and (max-width: 900px) {
+    .code-area {
+        flex-direction: column;
+        padding: 0 2rem;
+    }
+    .code-display, .output-display {
+        width: 100%;
+    }
+  }

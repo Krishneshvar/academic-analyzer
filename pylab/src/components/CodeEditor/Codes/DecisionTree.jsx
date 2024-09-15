@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import CodeEditor from "./CodeEditor"
+import CodeEditor from "../CodeEditor"
 
-function RandomForest() {
+function DecisionTree() {
     const [fileContent, setPythonFileContent] = useState('');
 
     useEffect(() => {
-        fetch('/Algorithms/RandomForest.py')
+        fetch('/Algorithms/DecisionTree.py')
         .then((response) => {
             if (response.ok) {
             return response.text();
@@ -22,9 +22,9 @@ function RandomForest() {
 
     return(
         <>
-        <CodeEditor code={fileContent} />
+            <CodeEditor code={fileContent} fileName={"DecisionTree.py"}/>
         </>
     )
 }
 
-export default RandomForest
+export default DecisionTree

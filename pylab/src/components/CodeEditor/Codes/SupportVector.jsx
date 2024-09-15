@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CodeEditor from "./CodeEditor"
+import CodeEditor from "../CodeEditor"
 
 function SupportVector() {
     const [fileContent, setPythonFileContent] = useState('');
