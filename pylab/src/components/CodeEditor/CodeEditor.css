@@ -1,7 +1,7 @@
 .code-editor {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 50%;
     padding: 1rem;
 }
 
@@ -24,12 +24,16 @@
 }
 
 .code-display {
-    width: 50%;
-    border: 1px solid gray;
-    box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* border: 1px solid gray; */
+    /* box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black; */
 }
 
-.output-display { width: 50%; }
+.output-display { 
+    width: 100%;
+}
 
 .info {
     display: flex;

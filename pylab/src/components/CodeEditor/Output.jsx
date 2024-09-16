@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 function Output({ editorRef }) {
     const [output, setOutput] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
 
     async function runCode() {
@@ -12,24 +11,25 @@ function Output({ editorRef }) {
         if (!code) return;
 
         try {
-            setIsLoading(true)
             const {run:result} = await executeCode(code);
             setOutput(result.output)
             result.stderr ? setIsError(true) : setIsError(false)
         }
         catch (error) { console.log(error) }
-        finally {
-            setIsLoading(false)
-        }
+        finally {}
     }
 
     return(
         <>
-        <button className="runbtn" onClick={runCode}>Run</button>
-        <div className="output-container" style={{border: isError ? "1px solid red" : "1px solid gray"}}>
-            {
-                output ? output : <i> The output of the code will be displayed here... </i>
-            }
+        <div className="output-display">
+            <div className='run-btn'>
+                <button onClick={runCode}> Run </button>
+            </div>
+            <div className="output-container" style={{border: isError ? "1px solid red" : "1px solid gray"}}>
+                {
+                    output ? output : <i> The output of the code will be displayed here... </i>
+                }
+            </div>
         </div>
         </>
     )

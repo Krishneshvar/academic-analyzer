@@ -24,33 +24,28 @@ function CodeEditor({ code, fileName }) {
         try {
             await executeCode(code)
         } catch (error) {
-            
+            console.log(error);
         }
     }
 
     return(
         <>
-        <div className="code-editor">
-            <div className='info'>
-                <p> { fileName } </p>
-                {/* <div className='run-btn'>
-                    <button onClick={runCode}> Run </button>
-                </div> */}
+        <div className="code-display">
+            <div className="code-editor">
+                <div className='info'>
+                    <p> { fileName } </p>
+                </div>
+                <Editor 
+                    height='75dvh'
+                    theme='vs-dark'
+                    defaultLanguage='python'
+                    value={value}
+                    onChange={(value) => setValue(value)}
+                    onMount={onMount}
+                />
             </div>
-            <div className='code-area'>
-                <div className='code-display'>
-                    <Editor 
-                        height='75dvh'
-                        theme='vs-dark'
-                        defaultLanguage='python'
-                        value={value}
-                        onChange={(value) => setValue(value)}
-                        onMount={onMount}
-                    />
-                </div>
-                <div className='output-display'>
-                    <Output editorRef={editorRef}/>
-                </div>
+            <div className='output-display'>
+                <Output editorRef={editorRef}/>
             </div>
         </div>
         </>
