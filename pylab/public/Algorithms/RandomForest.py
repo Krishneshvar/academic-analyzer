@@ -7,7 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 import seaborn as sns
 
 # Load the dataset
-file_path = 'Final_Student_Dataset.csv'
+file_path = 'pylab\public\Algorithms\csvfile.csv'
 dataset = pd.read_csv(file_path)
 
 # Drop unnecessary columns

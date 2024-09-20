@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load the dataset
-file_path = 'Final_Student_Dataset.csv'
+file_path = 'pylab\public\Algorithms\csvfile.csv'
 data = pd.read_csv(file_path)
 
 # Clean the data

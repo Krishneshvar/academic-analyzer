@@ -9,7 +9,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_selection import RFE
 
 # Load the dataset
-file_path = 'Final_Student_Dataset.csv'
+file_path = 'pylab\public\Algorithms\csvfile.csv'
 data = pd.read_csv(file_path)
 
 # Drop non-informative columns (Roll No., Name)
