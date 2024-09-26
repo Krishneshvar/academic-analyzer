@@ -21,15 +21,17 @@ function Output({ editorRef }) {
 
     return(
         <>
-        <div className="output-display">
-            <div className='run-btn'>
-                <button onClick={runCode}> Run </button>
-            </div>
-            <div className="output-container" style={{border: isError ? "1px solid red" : "1px solid gray"}}>
-                {
-                    output ? output : <i> The output of the code will be displayed here... </i>
-                }
-            </div>
+        <div className='run-btn'>
+            <button onClick={runCode}> Run </button>
+            <button>
+                Upload Dataset
+                <img src="/down-arrow.png" alt="Down Arrow" />
+            </button>
+        </div>
+        <div className="output-container" style={{border: isError ? "1px solid red" : "1px solid gray"}}>
+            {
+                output ? output : <i> The output of the code will be displayed here... </i>
+            }
         </div>
         </>
     )

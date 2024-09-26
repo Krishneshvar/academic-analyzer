@@ -1,6 +1,7 @@
 .code-editor {
     display: flex;
     flex-direction: column;
+    flex: 1;
     width: 50%;
     padding: 1rem;
 }
@@ -16,22 +17,14 @@
     color: white;
 }
 
-.code-area {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    width: 100%;
-}
-
 .code-display {
     display: flex;
     flex-direction: row;
     width: 100%;
-    /* border: 1px solid gray; */
-    /* box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black; */
 }
 
-.output-display { 
+.output-display {
+    flex: 1;
     width: 100%;
 }
 
@@ -43,12 +36,15 @@
     padding: 0.5rem;
 }
 
-@media screen and (max-width: 900px) {
-    .code-area {
+@media screen and (max-width: 1000px) {
+    .code-display {
         flex-direction: column;
-        padding: 0 2rem;
+        height: auto;
     }
-    .code-display, .output-display {
+    .code-editor {
         width: 100%;
+    }
+    .output-display {
+        height: 50dvh;
     }
   }
