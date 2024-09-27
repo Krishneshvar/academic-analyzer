@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const API = axios.create({
-    baseURL: "https://emkc.org/api/v2/piston"
+    baseURL: "https://localhost:3000"
 })
 
 export default async function executeCode(code) {
