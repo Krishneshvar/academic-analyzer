@@ -5,18 +5,25 @@ import { useState } from 'react';
 function Output({ editorRef }) {
     const [output, setOutput] = useState(null);
     const [isError, setIsError] = useState(false);
+    const [dataset, setDataset] = useState(null);
+
+    const handleFileUpload = (event) => {
+        setDataset(event.target.files[0]);
+    };
 
     async function runCode() {
         const code = editorRef.current.getValue();
-        if (!code) return;
-
-        try {
-            const {run:result} = await executeCode(code);
-            setOutput(result.output)
-            result.stderr ? setIsError(true) : setIsError(false)
+        if (!code || !dataset) {
+          console.error("Code or dataset is missing");
+          return;
         }
-        catch (error) { console.log(error) }
-        finally {}
+    
+        try {
+          const result = await executeCode(code, dataset);
+          setOutput(result.output);
+        } catch (error) {
+          console.error("Error running code:", error);
+        }
     }
 
     return(
@@ -24,9 +31,11 @@ function Output({ editorRef }) {
         <div className='run-btn'>
             <button onClick={runCode}> Run </button>
             <button>
-                Upload Dataset
+                <label htmlFor="upload-dataset">Upload Dataset</label>
+                <input type="file" id="upload-dataset" style={{ display: "none" }} onChange={handleFileUpload} />
                 <img src="/down-arrow.png" alt="Down Arrow" />
             </button>
+
         </div>
         <div className="output-container" style={{border: isError ? "1px solid red" : "1px solid gray"}}>
             {
