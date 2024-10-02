@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import CodeEditor from "../CodeEditor"
 
-function Comparison() {
+function ID3() {
     const [fileContent, setPythonFileContent] = useState('');
 
     useEffect(() => {
@@ -27,4 +27,4 @@ function Comparison() {
     )
 }
 
-export default Comparison
+export default ID3

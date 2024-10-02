@@ -46,11 +46,19 @@ function App() {
             </div>
           </Link>
         </div>
-      </div>
-      <div className="compare">
-        <Link to={`/comparison`} style={{ textDecoration: 'none', color: 'white'}}>
-          <button className="compare-btn"> Compare </button>
-        </Link>
+        <div className="choices">
+          <Link to={`/id3`} style={{ textDecoration: 'none', color: 'white'}}>
+            <h1> ID3 </h1>
+            <div className="choice-content">
+              <img src="/decision-tree.png" alt="ID3 Logo" />
+              <p>
+                This code performs machine learning classification to predict student pass/fail status based on CGPA. It uses multiple
+                models (Random Forest, SVC, Decision Tree, ID3) and evaluates their performance using accuracy, precision, recall, and
+                F2 score. Feature selection is done using RFE. The best model is identified based on the F2 score.
+              </p>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
     </>
