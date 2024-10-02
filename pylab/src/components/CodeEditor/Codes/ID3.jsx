@@ -5,7 +5,7 @@ function ID3() {
     const [fileContent, setPythonFileContent] = useState('');
 
     useEffect(() => {
-        fetch('/Algorithms/Comparison.py')
+        fetch('/Algorithms/ID3.py')
         .then((response) => {
             if (response.ok) {
             return response.text();
@@ -22,7 +22,7 @@ function ID3() {
 
     return(
         <>
-            <CodeEditor code={fileContent} fileName={"Comparison.py"}/>
+            <CodeEditor code={fileContent}/>
         </>
     )
 }
