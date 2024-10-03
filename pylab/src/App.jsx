@@ -7,7 +7,13 @@ function App() {
     <>
     <div className="algo-container">
       <div className="topic">
-        Students Academic Success
+        <h1> Students Academic Success </h1>
+        <p>
+          This application allows users to explore various machine learning models for CGPA prediction and classification. It showcases
+          different algorithms, evaluates their performance, and presents insights into feature importance and predictions. Users can upload
+          datasets and select different methods to predict CGPA or classify results based on performance metrics like accuracy, precision,
+          recall, and more.
+        </p>
       </div>
       <div className="algorithms">
         <div className="choices">
@@ -15,10 +21,7 @@ function App() {
             <h1> Decision Tree </h1>
             <div className="choice-content">
               <img src="/decision-tree.png" alt="Decision Tree Logo" />
-              <p>
-                This code predicts student CGPA using a Decision Tree model and feature selection. It evaluates the model's performance 
-                and visualizes the results.
-              </p>
+              <p></p>
             </div>
           </Link>
         </div>
@@ -27,10 +30,7 @@ function App() {
             <h1> Random Forest </h1>
             <div className="choice-content">
               <img src="/random-forest.png" alt="Random Forest Classifier Logo" />
-              <p>
-                This code predicts student CGPA using a Random Forest Regression model. It evaluates the model's performance using 
-                MSE and R^2, and visualizes the results.
-              </p>
+              <p></p>
             </div>
           </Link>
         </div>
@@ -39,10 +39,7 @@ function App() {
             <h1> SVC </h1>
             <div className="choice-content">
               <img src="/support-vector.png" alt="Support Vector Classifier Logo" />
-              <p>
-                This Python code uses an SVC model to predict student passing status based on selected features. It evaluates the model's 
-                performance using various metrics and visualizes the results.
-              </p>
+              <p></p>
             </div>
           </Link>
         </div>
@@ -51,11 +48,7 @@ function App() {
             <h1> ID3 </h1>
             <div className="choice-content">
               <img src="/decision-tree.png" alt="ID3 Logo" />
-              <p>
-                This code performs machine learning classification to predict student pass/fail status based on CGPA. It uses multiple
-                models (Random Forest, SVC, Decision Tree, ID3) and evaluates their performance using accuracy, precision, recall, and
-                F2 score. Feature selection is done using RFE. The best model is identified based on the F2 score.
-              </p>
+              <p></p>
             </div>
           </Link>
         </div>

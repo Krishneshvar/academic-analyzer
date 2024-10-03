@@ -32,11 +32,11 @@
   cursor: pointer;
   padding: 1rem;
   border-radius: 1rem;
-  height: 45%;
-  width: 45%;
+  height: 10%;
+  width: 20%;
   color: white;
   background-color: #0E8388;
-  border: 0.25rem inset white;
+  border: 0.2rem inset white;
 }
 
 .choices:hover {
