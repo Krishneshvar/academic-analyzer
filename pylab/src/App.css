@@ -1,13 +1,52 @@
-.container {
-  display: flex;
-  flex-direction: column;
+main {
+  background-color: gray;
+  color: white;
   height: 100dvh;
   width: 100dvw;
+  display: flex;
+  flex-direction: column;
 }
 
-.navbar {
+.site-name {
   background-color: black;
   padding: 1rem;
-  height: 10%;
+}
+
+.site-home {
+  padding: 1rem;
+  height: 85%;
+}
+
+.site-desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.algorithms {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: blue;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.cards {
+  background-color: aqua;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.footer {
+  background-color: black;
+  color: white;
+  display: flex;
+  height: 5%;
   width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
 }
