@@ -22,6 +22,8 @@ It provides 4 algorithms to be used for the prediction.
 
 [Node Package Manager](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
+reportlab library in python
+
 ## Usage
 <u> Step 1: </u>
 > Clone the repository.

@@ -6,6 +6,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import LabelEncoder
 import seaborn as sns
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 file_path = sys.argv[1]
 file_path = file_path
@@ -60,3 +62,16 @@ plt.xlabel('Importance')
 plt.ylabel('Features')
 plt.title('Feature Importances')
 plt.show()
+
+# Generate PDF
+pdf_file_path = "outputs/ID3_output.pdf"  # Adjust the path as needed
+c = canvas.Canvas(pdf_file_path, pagesize=letter)
+c.drawString(100, 750, "ID3 Classifier Output")
+c.drawString(100, 730, f"Selected Features: {X_selected.columns.tolist()}")
+c.drawString(100, 710, f"Accuracy: {accuracy:.4f}")
+c.drawString(100, 690, f"Classification Report:\n{report}")
+
+# Save the PDF
+c.save()
+
+print(f"Output saved to {pdf_file_path}")

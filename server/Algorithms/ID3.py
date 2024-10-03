@@ -8,6 +8,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_selection import RFE
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 file_path = sys.argv[1]
 file_path = file_path
@@ -116,3 +118,16 @@ print(f"Accuracy: {best_model['Accuracy']:.4f}")
 print(f"Precision: {best_model['Precision']:.4f}")
 print(f"Recall: {best_model['Recall']:.4f}")
 print(f"F2 Score: {best_model['F2 Score']:.4f}")
+
+# Generate PDF
+pdf_file_path = "outputs/ID3_output.pdf"  # Adjust the path as needed
+c = canvas.Canvas(pdf_file_path, pagesize=letter)
+c.drawString(100, 750, "ID3 Classifier Output")
+c.drawString(100, 730, f"Selected Features: {X_selected.columns.tolist()}")
+c.drawString(100, 710, f"Accuracy: {accuracy:.4f}")
+c.drawString(100, 690, f"Classification Report:\n{report}")
+
+# Save the PDF
+c.save()
+
+print(f"Output saved to {pdf_file_path}")

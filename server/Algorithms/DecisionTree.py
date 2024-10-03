@@ -5,6 +5,8 @@ from sklearn.feature_selection import RFE
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 import matplotlib.pyplot as plt
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 file_path = sys.argv[1]
 file_path = file_path
@@ -68,3 +70,16 @@ plt.title('Predicted vs Actual CGPA (ID3 Classifier)')
 
 plt.tight_layout()
 plt.show()
+
+# Generate PDF
+pdf_file_path = "outputs/ID3_output.pdf"  # Adjust the path as needed
+c = canvas.Canvas(pdf_file_path, pagesize=letter)
+c.drawString(100, 750, "ID3 Classifier Output")
+c.drawString(100, 730, f"Selected Features: {X_selected.columns.tolist()}")
+c.drawString(100, 710, f"Accuracy: {accuracy:.4f}")
+c.drawString(100, 690, f"Classification Report:\n{report}")
+
+# Save the PDF
+c.save()
+
+print(f"Output saved to {pdf_file_path}")
