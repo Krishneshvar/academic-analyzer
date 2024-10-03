@@ -20,47 +20,79 @@ function App() {
         </div>
         <div className="algorithms">
           <div className="cards">
-            <h1> ID3 </h1>
-            <p>
-              Implements the ID3 algorithm using a Decision Tree classifier to classify CGPA into Low, Medium, and High categories. Recursive
-              feature elimination (RFE) is used to select the best features.
-            </p>
+            <div className="card-content">
+              <h1> ID3 </h1>
+              <p>
+                Implements the ID3 algorithm using a Decision Tree classifier to classify CGPA into Low, Medium, and High categories. Recursive
+                feature elimination (RFE) is used to select the best features.
+              </p>
+            </div>
             <div className="compile-btns">
-              <button className="upload-btn"> Upload </button>
-              <button className="run-btn"> Run </button>
+              <button className="upload-btn">
+                Upload
+                <span class="material-symbols-outlined"> upload_file </span>
+              </button>
+              <button className="run-btn">
+                Run
+                <span class="material-symbols-outlined"> play_circle </span>
+              </button>
             </div>
           </div>
           <div className="cards">
-            <h1> ID3 </h1>
-            <p>
-              Implements the ID3 algorithm using a Decision Tree classifier to classify CGPA into Low, Medium, and High categories. Recursive
-              feature elimination (RFE) is used to select the best features.
-            </p>
+            <div className="card-content">
+              <h1> Decision Tree </h1>
+              <p>
+                Compares the performance of multiple models, including Random Forest, SVC, Decision Tree, and ID3. It evaluates them based on
+                accuracy, precision, recall, and F2 score, using Recursive Feature Elimination (RFE) for feature selection.
+              </p>
+            </div>
             <div className="compile-btns">
-              <button className="upload-btn"> Upload </button>
-              <button className="run-btn"> Run </button>
+              <button className="upload-btn">
+                Upload
+                <span class="material-symbols-outlined"> upload_file </span>
+              </button>
+              <button className="run-btn">
+                Run
+                <span class="material-symbols-outlined"> play_circle </span>
+              </button>
             </div>
           </div>
           <div className="cards">
-            <h1> ID3 </h1>
-            <p>
-              Implements the ID3 algorithm using a Decision Tree classifier to classify CGPA into Low, Medium, and High categories. Recursive
-              feature elimination (RFE) is used to select the best features.
-            </p>
+            <div className="card-content">
+              <h1> Random Forest </h1>
+              <p>
+                Uses Random Forest to predict continuous CGPA values. It evaluates the model’s performance through mean squared error (MSE) and
+                R² scores and visualizes feature importance.
+              </p>
+            </div>
             <div className="compile-btns">
-              <button className="upload-btn"> Upload </button>
-              <button className="run-btn"> Run </button>
+              <button className="upload-btn">
+                Upload
+                <span class="material-symbols-outlined"> upload_file </span>
+              </button>
+              <button className="run-btn">
+                Run
+                <span class="material-symbols-outlined"> play_circle </span>
+              </button>
             </div>
           </div>
           <div className="cards">
-            <h1> ID3 </h1>
-            <p>
-              Implements the ID3 algorithm using a Decision Tree classifier to classify CGPA into Low, Medium, and High categories. Recursive
-              feature elimination (RFE) is used to select the best features.
-            </p>
+            <div className="card-content">
+              <h1> SVC </h1>
+              <p>
+                A Support Vector Classifier (SVC) that classifies CGPA as pass or fail based on a threshold. Recursive feature elimination (RFE)
+                helps select the top features to improve prediction accuracy.
+              </p>
+            </div>
             <div className="compile-btns">
-              <button className="upload-btn"> Upload </button>
-              <button className="run-btn"> Run </button>
+              <button className="upload-btn">
+                Upload
+                <span class="material-symbols-outlined"> upload_file </span>
+              </button>
+              <button className="run-btn">
+                Run
+                <span class="material-symbols-outlined"> play_circle </span>
+              </button>
             </div>
           </div>
         </div>

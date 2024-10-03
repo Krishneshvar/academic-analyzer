@@ -1,5 +1,5 @@
 main {
-  background-color: gray;
+  background-color: #0B192C;
   color: white;
   height: 100dvh;
   width: 100dvw;
@@ -29,19 +29,53 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: blue;
+  height: 60%;
   padding: 1rem;
   border-radius: 1rem;
 }
 
 .cards {
-  background-color: aqua;
+  background-color: #1E3E62;
   padding: 1rem;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  height: 30%;
+  justify-content: space-between;
+  height: 100%;
   width: 20%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.compile-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.upload-btn, .run-btn {
+  background-color: #FF6500;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0.5rem;
+  width: 7rem;
+  transition: background-color 0.25s;
+}
+
+.upload-btn:hover, .run-btn:hover {
+  background-color: #c95000;
 }
 
 .footer {
