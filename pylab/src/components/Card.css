@@ -1,0 +1,46 @@
+.cards {
+    background-color: #1E3E62;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 20rem;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 100%;
+    max-width: 30%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.compile-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.upload-btn, .run-btn {
+    background-color: #FF6500;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 0.5rem;
+    width: 7rem;
+    transition: background-color 0.25s;
+}
+
+.upload-btn:hover, .run-btn:hover {
+    background-color: #c95000;
+}

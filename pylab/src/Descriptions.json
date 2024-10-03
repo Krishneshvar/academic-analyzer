@@ -1,0 +1,25 @@
+{
+    "siteDesc": {
+        "title": "Students Academic Performance",
+        "text": "This application allows users to explore various machine learning models for CGPA prediction and classification. It showcases different algorithms, evaluates their performance, and presents insights into feature importance and predictions. Users can upload datasets and select different methods to predict CGPA or classify results based on performance metrics like accuracy, precision, recall, and more."
+    },
+    "algorithms": [
+        {
+            "title": "ID3",
+            "description": "Implements the ID3 algorithm using a Decision Tree classifier to classify CGPA into Low, Medium, and High categories. Recursive feature elimination (RFE) is used to select the best features."
+        },
+        {
+            "title": "Decision Tree",
+            "description": "Compares the performance of multiple models, including Random Forest, SVC, Decision Tree, and ID3. It evaluates them based on accuracy, precision, recall, and F2 score, using Recursive Feature Elimination (RFE) for feature selection."
+        },
+        {
+            "title": "Random Forest",
+            "description": "Uses Random Forest to predict continuous CGPA values. It evaluates the model’s performance through mean squared error (MSE) and R² scores and visualizes feature importance."
+        },
+        {
+            "title": "SVC",
+            "description": "A Support Vector Classifier (SVC) that classifies CGPA as pass or fail based on a threshold. Recursive feature elimination (RFE) helps select the top features to improve prediction accuracy."
+        }
+    ]
+}
+  
