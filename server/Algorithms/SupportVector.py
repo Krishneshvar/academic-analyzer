@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 from sklearn.svm import SVC
 from sklearn.feature_selection import RFE
@@ -6,8 +7,8 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, fbeta
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Load the dataset
-file_path = 'pylab\public\Algorithms\csvfile.csv'
+file_path = sys.argv[1]
+file_path = file_path
 data = pd.read_csv(file_path)
 
 # Clean the data

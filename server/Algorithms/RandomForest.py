@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -6,8 +7,8 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import LabelEncoder
 import seaborn as sns
 
-# Load the dataset
-file_path = 'pylab\public\Algorithms\csvfile.csv'
+file_path = sys.argv[1]
+file_path = file_path
 dataset = pd.read_csv(file_path)
 
 # Drop unnecessary columns

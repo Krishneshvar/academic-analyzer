@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -8,8 +9,8 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_selection import RFE
 
-# Load the dataset
-file_path = 'pylab\public\Algorithms\csvfile.csv'
+file_path = sys.argv[1]
+file_path = file_path
 data = pd.read_csv(file_path)
 
 # Drop non-informative columns (Roll No., Name)

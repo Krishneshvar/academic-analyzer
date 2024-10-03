@@ -1,51 +1,45 @@
-const express = require("express");
-const multer = require("multer");
-const { PythonShell } = require("python-shell");
-const fs = require("fs");
-const path = require("path");
+import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import dotenv from 'dotenv';
+import { exec } from 'child_process';
+import { fileURLToPath } from 'url';
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 3000;
+const upload = multer({ dest: 'uploads/' });
 
-// Set up multer for file uploads
-const upload = multer({ dest: "uploads/" });
+app.post('/run-algorithm', upload.single('file'), (req, res) => {
+  const file = req.file;
+  const algorithm = req.body.algorithm;
 
-// Route to handle code execution
-app.post("/execute", upload.single("dataset"), async (req, res) => {
-  const { code } = req.body;
-  const datasetPath = req.file.path;
+  // Build the command to run the Python script with the uploaded file
+  const pythonScriptPath = path.join(__dirname, 'Algorithms', `${algorithm}.py`);
+  const filePath = path.join(__dirname, file.path);
 
-  // Save the code to a temporary Python file
-  const codeFilePath = path.join(__dirname, "temp_code.py");
-  fs.writeFileSync(codeFilePath, code);
+  // Enclose paths in quotes to handle spaces
+  const command = `python3 "${pythonScriptPath}" "${filePath}"`;
 
-  try {
-    // Run the Python code with the dataset using PythonShell
-    let options = {
-      mode: "text",
-      pythonOptions: ["-u"], // get print results in real-time
-      args: [datasetPath], // Pass dataset as an argument to the script
-    };
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error executing script: ${error.message}`);
+      return res.status(500).json({ message: `Error running algorithm: ${error.message}` });
+    }
 
-    PythonShell.run(codeFilePath, options, function (err, results) {
-      if (err) {
-        console.error("Error running Python script:", err);
-        return res.status(500).send({ error: err.message });
-      }
+    if (stderr) {
+      console.error(`Script error: ${stderr}`);
+      return res.status(500).json({ message: `Script error: ${stderr}` });
+    }
 
-      // Send the output back to the client
-      res.send({ output: results.join("\n") });
-    });
-  } catch (error) {
-    console.error("Error executing code:", error);
-    res.status(500).send({ error: error.message });
-  } finally {
-    // Clean up temporary files (code and dataset)
-    fs.unlinkSync(codeFilePath);
-    fs.unlinkSync(datasetPath);
-  }
+    console.log(`Script output: ${stdout}`);
+    return res.json({ message: `Algorithm ${algorithm} ran successfully on ${file.originalname}`, output: stdout });
+  });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(process.env.SERVER_PORT, () => {
+  console.log(`Server running on http://localhost:${process.env.SERVER_PORT}`);
 });

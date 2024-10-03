@@ -1,6 +1,6 @@
 import './App.css';
 import data from './Descriptions.json';
-import Card from './components/Card';
+import Card from './components/Card/Card';
 
 function App() {
   const currYear = new Date().getFullYear();

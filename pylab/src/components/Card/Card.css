@@ -45,3 +45,16 @@
 .upload-btn:hover, .run-btn:hover {
     background-color: #c95000;
 }
+
+.upload-btn { position: relative; }
+
+.file-info {
+    position: absolute;
+    top: -25px;
+    background-color: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}

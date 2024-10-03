@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_selection import RFE
@@ -5,8 +6,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 import matplotlib.pyplot as plt
 
-# Load the dataset
-file_path = 'pylab\public\Algorithms\csvfile.csv'
+file_path = sys.argv[1]
+file_path = file_path
 data = pd.read_csv(file_path)
 
 # Clean the data
