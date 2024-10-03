@@ -1,72 +1,13 @@
-.algo-container {
+.container {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  height: 90dvh;
+  height: 100dvh;
+  width: 100dvw;
 }
 
-.topic {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.navbar {
+  background-color: black;
   padding: 1rem;
-  height: 15%;
-  color: white;
-  font-size: 3rem;
-}
-
-.algorithms {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 1rem;
-  align-items: center;
-  height: 85%;
-}
-
-.choices {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  padding: 1rem;
-  border-radius: 1rem;
   height: 10%;
-  width: 20%;
-  color: white;
-  background-color: #0E8388;
-  border: 0.2rem inset white;
-}
-
-.choices:hover {
-  border-style: outset;
-}
-
-.choices img {
-  height: 5rem;
-  width: 5rem;
-}
-
-.choices h1 { text-align: center; }
-
-.choice-content {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-}
-
-.compare {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-}
-
-.compare-btn {
-  padding: 1rem;
-  background-color: #0E8388;
-  color: white;
-  border-radius: 1rem;
-  width: 10dvw;
+  width: 100%;
 }

@@ -1,26 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, Outlet, RouterProvider, } from "react-router-dom";
 import App from './App.jsx'
-import Navbar from './components/Navbar/Navbar.jsx';
-import DecisionTree from './components/CodeEditor/Codes/DecisionTree.jsx';
-import RandomForest from './components/CodeEditor/Codes/RandomForest.jsx';
-import SupportVector from './components/CodeEditor/Codes/SupportVector.jsx';
-import ID3 from './components/CodeEditor/Codes/ID3.jsx';
 import './index.css'
-
-const router = createBrowserRouter([
-  { path: "/", element: <App />, },
-  { path: "/decision-tree", element: <DecisionTree />, },
-  { path: "/random-forest", element: <RandomForest />, },
-  { path: "/support-vector", element: <SupportVector />, },
-  { path: "/id3", element: <ID3 />, },
-]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Navbar />
-    <RouterProvider router={router} />
-    <Outlet />
+    <App />
   </StrictMode>,
 )
