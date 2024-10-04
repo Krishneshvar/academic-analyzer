@@ -59,7 +59,6 @@ plt.ylabel('Actual')
 
 # Save plot as image
 plt.savefig("outputs/RandomForest_Confusion_Matrix.png")
-plt.show()
 
 # Combine the terminal output and plot into one image
 terminal_output = Image.open("outputs/RandomForest_Terminal_Output.png")

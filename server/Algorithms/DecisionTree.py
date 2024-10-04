@@ -73,7 +73,6 @@ plt.tight_layout()
 
 # Save plot as image
 plt.savefig("outputs/ID3_Actual_vs_Predicted.png")
-plt.show()
 
 # Combine the terminal output and plot images into one
 terminal_output = Image.open("outputs/ID3_Terminal_Output.png")

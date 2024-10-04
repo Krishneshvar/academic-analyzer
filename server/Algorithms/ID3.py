@@ -69,7 +69,6 @@ plt.ylabel("Actual")
 
 # Save plot as image
 plt.savefig("outputs/ID3_Confusion_Matrix.png")
-plt.show()
 
 # Combine terminal output and plot into one image
 terminal_output = Image.open("outputs/ID3_Terminal_Output.png")

@@ -59,7 +59,6 @@ plt.ylabel('Actual')
 
 # Save plot as image
 plt.savefig("outputs/SVM_Confusion_Matrix.png")
-plt.show()
 
 # Combine the terminal output and plot into one image
 terminal_output = Image.open("outputs/SVM_Terminal_Output.png")
