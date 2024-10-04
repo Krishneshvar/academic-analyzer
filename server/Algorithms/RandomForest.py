@@ -1,77 +1,73 @@
 import sys
 import pandas as pd
-import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import seaborn as sns
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
+import matplotlib.pyplot as plt
+from PIL import Image, ImageDraw, ImageFont
 
 file_path = sys.argv[1]
-file_path = file_path
-dataset = pd.read_csv(file_path)
+data = pd.read_csv(file_path)
 
-# Drop unnecessary columns
-dataset = dataset.drop(columns=['Roll No.', 'Name'])
+# Clean the data
+data_cleaned = data.drop(columns=['Roll No.', 'Name'])
 
-# Encode categorical variables
-label_encoders = {}
-for column in ['Gender', 'Branch', 'Course']:
-    le = LabelEncoder()
-    dataset[column] = le.fit_transform(dataset[column])
-    label_encoders[column] = le
+# Encode categorical variables using one-hot encoding
+data_encoded = pd.get_dummies(data_cleaned, drop_first=True)
 
-# Define features and target
-X = dataset.drop(columns=['CGPA'])
-y = dataset['CGPA']
+# Define features (X) and target (y)
+X = data_encoded.drop(columns=['CGPA'])
+y = pd.cut(data_encoded['CGPA'], bins=[0, 6, 8, 10], labels=['Low', 'Medium', 'High'])
 
-# Split the dataset into training and testing sets
+# Fill missing values
+X = X.fillna(0)
+
+# Initialize the RandomForest model
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+
+# Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Initialize and train the Random Forest model
-rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
-rf_model.fit(X_train, y_train)
+# Train the model
+model.fit(X_train, y_train)
 
-# Predict on the test set
-y_pred = rf_model.predict(X_test)
+# Predict on test data
+y_pred = model.predict(X_test)
 
 # Evaluate the model
-mse = mean_squared_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+report = classification_report(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
 
-# Display the results
-print(f"Mean Squared Error: {mse}")
-print(f"R^2 Score: {r2}")
+# Save terminal output as image
+output_text = f"Accuracy: {accuracy:.4f}\n\nClassification Report:\n{report}"
 
-# Plot actual vs predicted values
-plt.figure(figsize=(10, 6))
-plt.scatter(y_test, y_pred, alpha=0.3, color='blue')
-plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--', lw=2)
-plt.xlabel('Actual CGPA')
-plt.ylabel('Predicted CGPA')
-plt.title('Actual vs Predicted CGPA')
+# Create image of text output
+font = ImageFont.load_default()
+image = Image.new('RGB', (800, 400), color=(255, 255, 255))
+draw = ImageDraw.Draw(image)
+draw.text((10, 10), output_text, fill=(0, 0, 0), font=font)
+image.save("outputs/RandomForest_Terminal_Output.png")
+
+# Plot confusion matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', cbar=False)
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+
+# Save plot as image
+plt.savefig("outputs/RandomForest_Confusion_Matrix.png")
 plt.show()
 
-# Plot feature importances
-feature_importances = pd.Series(rf_model.feature_importances_, index=X.columns)
-plt.figure(figsize=(10, 6))
-sns.barplot(x=feature_importances.sort_values(ascending=False), y=feature_importances.sort_values(ascending=False).index)
-plt.xlabel('Importance')
-plt.ylabel('Features')
-plt.title('Feature Importances')
-plt.show()
+# Combine the terminal output and plot into one image
+terminal_output = Image.open("outputs/RandomForest_Terminal_Output.png")
+plot_image = Image.open("outputs/RandomForest_Confusion_Matrix.png")
 
-# Generate PDF
-pdf_file_path = "outputs/ID3_output.pdf"  # Adjust the path as needed
-c = canvas.Canvas(pdf_file_path, pagesize=letter)
-c.drawString(100, 750, "ID3 Classifier Output")
-c.drawString(100, 730, f"Selected Features: {X_selected.columns.tolist()}")
-c.drawString(100, 710, f"Accuracy: {accuracy:.4f}")
-c.drawString(100, 690, f"Classification Report:\n{report}")
+combined_image = Image.new('RGB', (max(terminal_output.width, plot_image.width), terminal_output.height + plot_image.height))
+combined_image.paste(terminal_output, (0, 0))
+combined_image.paste(plot_image, (0, terminal_output.height))
 
-# Save the PDF
-c.save()
-
-print(f"Output saved to {pdf_file_path}")
+# Save the combined image
+combined_image.save("outputs/RandomForest_Final_Output.png")

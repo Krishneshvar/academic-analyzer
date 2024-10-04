@@ -5,11 +5,10 @@ from sklearn.feature_selection import RFE
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 import matplotlib.pyplot as plt
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
+import seaborn as sns
+from PIL import Image, ImageDraw, ImageFont
 
 file_path = sys.argv[1]
-file_path = file_path
 data = pd.read_csv(file_path)
 
 # Clean the data
@@ -50,36 +49,39 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 report = classification_report(y_test, y_pred)
 
-# Display the selected features and model evaluation metrics
-print("Selected Features:", X_selected.columns)
-print("Accuracy:", accuracy)
-print("Classification Report:\n", report)
+# Save terminal output as image
+output_text = f"Selected Features: {list(X_selected.columns)}\n\nAccuracy: {accuracy}\n\nClassification Report:\n{report}"
 
-# Convert the categorical predictions back to the midpoint of their CGPA ranges for visualization
+# Create image of text output
+font = ImageFont.load_default()
+image = Image.new('RGB', (800, 400), color=(255, 255, 255))
+draw = ImageDraw.Draw(image)
+draw.text((10, 10), output_text, fill=(0, 0, 0), font=font)
+image.save("outputs/ID3_Terminal_Output.png")
+
+# Convert the categorical predictions back to CGPA midpoints for visualization
 y_test_cgpa = y_test.map({'Low': 5, 'Medium': 7, 'High': 9})
 y_pred_cgpa = pd.Series(y_pred).map({'Low': 5, 'Medium': 7, 'High': 9})
 
-# Plot predicted vs. actual CGPA (as midpoints)
+# Plot predicted vs. actual CGPA
 plt.figure(figsize=(12, 6))
-
-# Scatter plot of predicted vs. actual CGPA (midpoints)
 plt.scatter(y_test_cgpa, y_pred_cgpa, alpha=0.7)
 plt.xlabel('Actual CGPA (midpoints)')
 plt.ylabel('Predicted CGPA (midpoints)')
 plt.title('Predicted vs Actual CGPA (ID3 Classifier)')
-
 plt.tight_layout()
+
+# Save plot as image
+plt.savefig("outputs/ID3_Actual_vs_Predicted.png")
 plt.show()
 
-# Generate PDF
-pdf_file_path = "outputs/ID3_output.pdf"  # Adjust the path as needed
-c = canvas.Canvas(pdf_file_path, pagesize=letter)
-c.drawString(100, 750, "ID3 Classifier Output")
-c.drawString(100, 730, f"Selected Features: {X_selected.columns.tolist()}")
-c.drawString(100, 710, f"Accuracy: {accuracy:.4f}")
-c.drawString(100, 690, f"Classification Report:\n{report}")
+# Combine the terminal output and plot images into one
+terminal_output = Image.open("outputs/ID3_Terminal_Output.png")
+plot_image = Image.open("outputs/ID3_Actual_vs_Predicted.png")
 
-# Save the PDF
-c.save()
+combined_image = Image.new('RGB', (max(terminal_output.width, plot_image.width), terminal_output.height + plot_image.height))
+combined_image.paste(terminal_output, (0, 0))
+combined_image.paste(plot_image, (0, terminal_output.height))
 
-print(f"Output saved to {pdf_file_path}")
+# Save the combined image
+combined_image.save("outputs/ID3_Final_Output.png")

@@ -2,17 +2,14 @@ import sys
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, precision_score, recall_score, fbeta_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, fbeta_score, classification_report
 import matplotlib.pyplot as plt
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_selection import RFE
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
+import seaborn as sns
+from PIL import Image, ImageDraw, ImageFont
 
 file_path = sys.argv[1]
-file_path = file_path
 data = pd.read_csv(file_path)
 
 # Drop non-informative columns (Roll No., Name)
@@ -31,103 +28,56 @@ y_class = np.where(data_encoded['CGPA'] >= threshold, 1, 0)  # 1 for passing, 0 
 # Fill missing values with 0
 X = X.fillna(0)
 
-# Initialize the models
-models = {
-    'Random Forest': RandomForestClassifier(random_state=42),
-    'SVC': SVC(kernel='linear', random_state=42),
-    'Decision Tree': DecisionTreeClassifier(random_state=42),
-    'ID3': DecisionTreeClassifier(criterion='entropy', random_state=42)  # ID3 represented by using 'entropy' criterion
-}
+# Initialize the ID3 model
+model = DecisionTreeClassifier(criterion='entropy', random_state=42)
 
-# Define the number of top features to select
-n_features_to_select = 6
+# Perform Recursive Feature Elimination (RFE)
+rfe = RFE(estimator=model, n_features_to_select=6)
+rfe = rfe.fit(X, y_class)
+X_selected = X.loc[:, rfe.support_]
 
-# Store metrics
-results = {'Model': [], 'Accuracy': [], 'Precision': [], 'Recall': [], 'F2 Score': []}
+# Split the data into training and testing sets (80% training, 20% testing)
+X_train, X_test, y_train, y_test = train_test_split(X_selected, y_class, test_size=0.2, random_state=42)
 
-# Perform RFE for each model and evaluate
-for name, model in models.items():
-    # Perform Recursive Feature Elimination (RFE) for all models
-    rfe = RFE(estimator=model, n_features_to_select=n_features_to_select)
-    rfe = rfe.fit(X, y_class)
-    X_selected = X.loc[:, rfe.support_]
-    
-    # Split the data into training and testing sets (80% training, 20% testing)
-    X_train, X_test, y_train, y_test = train_test_split(X_selected, y_class, test_size=0.2, random_state=42)
-    
-    # Train the model
-    model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
-    
-    # Evaluate the model
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f2 = fbeta_score(y_test, y_pred, beta=2)
-    
-    results['Model'].append(name)
-    results['Accuracy'].append(accuracy)
-    results['Precision'].append(precision)
-    results['Recall'].append(recall)
-    results['F2 Score'].append(f2)
+# Train the model
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
 
-# Convert results to DataFrame
-results_df = pd.DataFrame(results)
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f2 = fbeta_score(y_test, y_pred, beta=2)
+report = classification_report(y_test, y_pred)
 
-# Plot Accuracy, Precision, Recall, and F2 Score for each model
-plt.figure(figsize=(14, 8))
+# Save terminal output as image
+output_text = f"Accuracy: {accuracy:.4f}\nPrecision: {precision:.4f}\nRecall: {recall:.4f}\nF2 Score: {f2:.4f}\n\nClassification Report:\n{report}"
 
-# Accuracy
-plt.subplot(2, 2, 1)
-plt.bar(results_df['Model'], results_df['Accuracy'], color='green')
-plt.xlabel('Model')
-plt.ylabel('Accuracy')
-plt.title('Accuracy Comparison')
+# Create image of text output
+font = ImageFont.load_default()
+image = Image.new('RGB', (800, 400), color=(255, 255, 255))
+draw = ImageDraw.Draw(image)
+draw.text((10, 10), output_text, fill=(0, 0, 0), font=font)
+image.save("outputs/ID3_Terminal_Output.png")
 
-# Precision
-plt.subplot(2, 2, 2)
-plt.bar(results_df['Model'], results_df['Precision'], color='blue')
-plt.xlabel('Model')
-plt.ylabel('Precision')
-plt.title('Precision Comparison')
+# Plot confusion matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(pd.crosstab(y_test, y_pred), annot=True, fmt="d", cmap="Blues", cbar=False)
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
 
-# Recall
-plt.subplot(2, 2, 3)
-plt.bar(results_df['Model'], results_df['Recall'], color='red')
-plt.xlabel('Model')
-plt.ylabel('Recall')
-plt.title('Recall Comparison')
-
-# F2 Score
-plt.subplot(2, 2, 4)
-plt.bar(results_df['Model'], results_df['F2 Score'], color='yellow')
-plt.xlabel('Model')
-plt.ylabel('F2 Score')
-plt.title('F2 Score Comparison')
-
-plt.tight_layout()
+# Save plot as image
+plt.savefig("outputs/ID3_Confusion_Matrix.png")
 plt.show()
 
-# Identify and print the best model based on F2 Score
-best_model_index = results_df['F2 Score'].idxmax()
-best_model = results_df.iloc[best_model_index]
+# Combine terminal output and plot into one image
+terminal_output = Image.open("outputs/ID3_Terminal_Output.png")
+plot_image = Image.open("outputs/ID3_Confusion_Matrix.png")
 
-print("\nBest Model Based on F2 Score:")
-print(f"Model: {best_model['Model']}")
-print(f"Accuracy: {best_model['Accuracy']:.4f}")
-print(f"Precision: {best_model['Precision']:.4f}")
-print(f"Recall: {best_model['Recall']:.4f}")
-print(f"F2 Score: {best_model['F2 Score']:.4f}")
+combined_image = Image.new('RGB', (max(terminal_output.width, plot_image.width), terminal_output.height + plot_image.height))
+combined_image.paste(terminal_output, (0, 0))
+combined_image.paste(plot_image, (0, terminal_output.height))
 
-# Generate PDF
-pdf_file_path = "outputs/ID3_output.pdf"  # Adjust the path as needed
-c = canvas.Canvas(pdf_file_path, pagesize=letter)
-c.drawString(100, 750, "ID3 Classifier Output")
-c.drawString(100, 730, f"Selected Features: {X_selected.columns.tolist()}")
-c.drawString(100, 710, f"Accuracy: {accuracy:.4f}")
-c.drawString(100, 690, f"Classification Report:\n{report}")
-
-# Save the PDF
-c.save()
-
-print(f"Output saved to {pdf_file_path}")
+# Save the combined image
+combined_image.save("outputs/ID3_Final_Output.png")
