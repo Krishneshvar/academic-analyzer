@@ -84,4 +84,4 @@ combined_image.paste(terminal_output, (0, 0))
 combined_image.paste(plot_image, (0, terminal_output.height))
 
 # Save the combined image
-combined_image.save("outputs/ID3_Final_Output.png")
+combined_image.save("outputs/DecisionTree_Final_Output.png")

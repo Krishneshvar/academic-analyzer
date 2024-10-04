@@ -70,4 +70,4 @@ combined_image.paste(terminal_output, (0, 0))
 combined_image.paste(plot_image, (0, terminal_output.height))
 
 # Save the combined image
-combined_image.save("outputs/SVM_Final_Output.png")
+combined_image.save("outputs/SupportVector_Final_Output.png")

@@ -6,7 +6,6 @@ const Card = ({ algo }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Handle file input
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
@@ -14,51 +13,58 @@ const Card = ({ algo }) => {
     console.log("File selected:", file);
   };
 
-  // Handle Run button click
   const handleRun = async () => {
     if (!selectedFile) {
-        alert("Please upload a file before running the algorithm.");
-        return;
+      alert("Please upload a file before running the algorithm.");
+      return;
     }
 
     const formData = new FormData();
     formData.append('file', selectedFile);
-    formData.append('algorithm', algo.title);
+    formData.append('algorithm', algo.title); // Send the algorithm title to the backend
+
+    setLoading(true); // Set loading state to true while processing
 
     try {
-        const response = await fetch('http://localhost:3000/run-algorithm', {
-            method: 'POST',
-            body: formData,
-        });
+      const response = await fetch('http://localhost:3000/run-algorithm', {
+        method: 'POST',
+        body: formData,
+      });
 
-        // Check if the response is OK (status code 200-299)
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+      // Check if the response is OK (status code 200-299)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-        // Create a blob from the response and trigger download
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = 'result.pdf'; // Specify the file name
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        alert('Algorithm ran successfully! PDF is downloaded.');
-    } catch (error) {
-        console.error("Error while sending data to server:", error);
-        alert("There was an error running the algorithm.");
+      // Create a blob from the response and trigger download
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = 'result.png'; // Specify the file name
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      alert('Algorithm ran successfully! PDF is downloaded.');
     }
-};
+    catch (error) {
+      console.error("Error while sending data to server:", error);
+      alert("There was an error running the algorithm.");
+    }
+    finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="cards">
       <div className="card-content">
         <h1>{algo.title}</h1>
         <p>{algo.description}</p>
-        {errorMessage && <div className="error-message">{errorMessage}</div>} {/* Display error message */}
+        {
+          errorMessage && <div className="error-message"> {errorMessage} </div>
+        }
       </div>
 
       <div className="compile-btns">
@@ -73,17 +79,17 @@ const Card = ({ algo }) => {
           <span className="material-symbols-outlined">
             {selectedFile ? 'check_circle' : 'upload_file'}
           </span>
-
-          {selectedFile && (
-            <div className="file-info">
-              {selectedFile.name}
-            </div>
-          )}
+          {
+            selectedFile && (
+              <div className="file-info">
+                {selectedFile.name}
+              </div> )
+          }
         </label>
 
         <button className="run-btn" onClick={handleRun} disabled={loading}>
           {loading ? 'Running...' : 'Run'}
-          <span className="material-symbols-outlined">play_circle</span>
+          <span className="material-symbols-outlined"> play_circle </span>
         </button>
       </div>
     </div>
