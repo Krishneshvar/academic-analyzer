@@ -1,15 +1,13 @@
-# Online Code Editor
+# Student Academic Performance Analyzer
 
-A project that allows you to code on a browser based code editor ([Monaco editor](https://microsoft.github.io/monaco-editor/) for React). It is created using [Vite](https://vite.dev/) + [React JS](https://react.dev/).
+> Created using [Vite](https://vite.dev/) + [React JS](https://react.dev/).
 
-> Customized specifically for a use case, for Python codes.
-
-# PyLab
+> Customized specifically for a use case.
 
 ## About
-The client side application of a custom Python editor, specifically used to predict student's academic performance, for those who don't have programming knowledge and wants to get the job done. It predicts based on previous tests, assignments and exams.
+The client side application offers four different algorithms for analyzing students' academic performance. Upload the dataset(.xlsx, .csv) of the students and run the analysis. An image will automatically download, which will contain the details of the analysis.
 
-It provides 4 algorithms to be used for the prediction.
+The 4 algorithms used for the prediction.
 ```
 • Decision Tree
 • Random Forest
@@ -22,7 +20,7 @@ It provides 4 algorithms to be used for the prediction.
 
 [Node Package Manager](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
-reportlab library in python
+[Pillow](https://pypi.org/project/pillow/)
 
 ## Usage
 <u> Step 1: </u>
