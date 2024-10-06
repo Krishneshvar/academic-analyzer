@@ -9,7 +9,7 @@
     gap: 1rem;
     min-height: 100%;
     max-width: 30%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 1rem 1rem 0 rgba(58, 69, 117, 0.3), 0 6px 20px 0 rgba(58, 69, 117, 0.2);
 }
 
 .card-content {
@@ -30,7 +30,6 @@
 .upload-btn, .run-btn {
     background-color: #FF6500;
     color: white;
-    border: none;
     padding: 0.5rem;
     display: flex;
     flex-direction: row;
@@ -50,11 +49,11 @@
 
 .file-info {
     position: absolute;
-    top: -25px;
-    background-color: #333;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
+    top: -2rem;
+    background-color: white;
+    color: black;
+    padding: 0.25rem;
+    border-radius: 1rem;
     font-size: 0.8rem;
     white-space: nowrap;
 }

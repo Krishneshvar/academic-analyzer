@@ -9,7 +9,7 @@ const Card = ({ algo }) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-    setErrorMessage(''); // Clear error message on new file selection
+    setErrorMessage('');
     console.log("File selected:", file);
   };
 
@@ -23,7 +23,7 @@ const Card = ({ algo }) => {
     formData.append('file', selectedFile);
     formData.append('algorithm', algo.title); // Send the algorithm title to the backend
 
-    setLoading(true); // Set loading state to true while processing
+    setLoading(true);
 
     try {
       const response = await fetch('http://localhost:3000/run-algorithm', {
@@ -31,7 +31,6 @@ const Card = ({ algo }) => {
         body: formData,
       });
 
-      // Check if the response is OK (status code 200-299)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -42,11 +41,11 @@ const Card = ({ algo }) => {
       const a = document.createElement('a');
       a.style.display = 'none';
       a.href = url;
-      a.download = 'result.png'; // Specify the file name
+      a.download = 'result.png';
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
-      alert('Algorithm ran successfully! PDF is downloaded.');
+      alert('Algorithm ran successfully! Image is downloaded.');
     }
     catch (error) {
       console.error("Error while sending data to server:", error);
@@ -77,18 +76,23 @@ const Card = ({ algo }) => {
             accept=".csv, .xlsx"
           />
           <span className="material-symbols-outlined">
-            {selectedFile ? 'check_circle' : 'upload_file'}
+            {
+              selectedFile ? 'check_circle' : 'upload_file'
+            }
           </span>
           {
             selectedFile && (
               <div className="file-info">
                 {selectedFile.name}
-              </div> )
+              </div>
+            )
           }
         </label>
 
         <button className="run-btn" onClick={handleRun} disabled={loading}>
-          {loading ? 'Running...' : 'Run'}
+          {
+            loading ? 'Running...' : 'Run'
+          }
           <span className="material-symbols-outlined"> play_circle </span>
         </button>
       </div>

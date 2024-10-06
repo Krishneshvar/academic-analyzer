@@ -1,22 +1,21 @@
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
-import dotenv from 'dotenv';
 import { exec } from 'child_process';
 import fs from 'fs';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 
-dotenv.config();
-
 const app = express();
-const upload = multer({ dest: 'uploads/' });
+const server_port = 3000;
+const client_port = 5173;
 
+const upload = multer({ dest: 'uploads/' });
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: `http://localhost:${client_port}`,
   methods: ['GET', 'POST'],
   credentials: true,
 }));
@@ -34,14 +33,14 @@ app.post('/run-algorithm', upload.single('file'), (req, res) => {
 
   const selectedAlgorithm = algorithmMap[algorithm];
   if (!selectedAlgorithm) {
-    return res.status(400).json({ message: 'Invalid algorithm selected' });
+    return res.status(400).json({ message: 'No algorithms or Invalid algorithm selected' });
   }
 
   const pythonCommand = `python3 Algorithms/${selectedAlgorithm} "${filePath}"`;
 
   exec(pythonCommand, (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error executing Python script: ${error}`);
+      console.error(`Error executing Python file: ${error}`);
       return res.status(500).json({ message: 'Error running algorithm' });
     }
 
@@ -54,13 +53,13 @@ app.post('/run-algorithm', upload.single('file'), (req, res) => {
 
     res.download(imagePath, 'result.png', (err) => {
       if (err) {
-        console.error(`Error sending image file: ${err}`);
-        return res.status(500).json({ message: 'Error sending PDF file' });
+        console.error(`Error sending image file to client: ${err}`);
+        return res.status(500).json({ message: 'Error sending image file to client' });
       }
     });
   });
 });
 
-app.listen(process.env.SERVER_PORT, () => {
-  console.log(`Server is running on http://localhost:${process.env.SERVER_PORT}`);
+app.listen(server_port, () => {
+  console.log(`Server is running on http://localhost:${server_port}`);
 });
