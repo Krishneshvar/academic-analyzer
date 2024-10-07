@@ -14,11 +14,30 @@ const upload = multer({ dest: 'uploads/' });
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// List of allowed origins
+const allowedOrigins = [
+  'http://192.168.81.220:5173',
+  'http://192.168.81.224:5173',
+  'http://192.168.81.222:5173',
+];
+
+// CORS configuration
 app.use(cors({
-  origin: `http://localhost:${client_port}`,
+  origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      // Check if the incoming origin is in the list of allowed origins
+      if (allowedOrigins.includes(origin)) {
+          callback(null, true); // Allow the request
+      } else {
+          callback(new Error('Not allowed by CORS')); // Deny the request
+      }
+  },
   methods: ['GET', 'POST'],
-  credentials: true,
+  credentials: true
 }));
+
 
 app.post('/run-algorithm', upload.single('file'), (req, res) => {
   const filePath = path.join(__dirname, 'uploads', req.file.filename);
@@ -61,5 +80,5 @@ app.post('/run-algorithm', upload.single('file'), (req, res) => {
 });
 
 app.listen(server_port, () => {
-  console.log(`Server is running on http://localhost:${server_port}`);
+  console.log(`Server is running on http://192.168.81.220:${server_port}`);
 });
