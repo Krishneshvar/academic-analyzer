@@ -26,7 +26,7 @@ const Card = ({ algo }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3000/run-algorithm', {
+      const response = await fetch('http://192.168.81.220:3000/run-algorithm', {
         method: 'POST',
         body: formData,
       });
