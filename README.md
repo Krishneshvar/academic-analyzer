@@ -44,13 +44,13 @@ npm install
 ```
 
 <u> Step 3: </u>
-> Run the web server.
+> Move to the server app directory and run the web server.
 ```bash
 node index.js
 ```
 
 <u> Step 4: </u>
-> Run the client application.
+> Move to the client app directory and run the client application.
 ```bash
 cd ../client
 npm run dev
@@ -63,4 +63,4 @@ http://localhost:5173/
 ```
 
 <u> Step 6: </u>
-> Upload the dataset file (.xlsx or .csv) in any of the algorithm and run it. The image file generated with the analysis will automatically be downloaded as `result.png` in your `Downloads` folder.
+> Upload the dataset file (.csv) in any of the algorithm and run it. The image file generated with the analysis will automatically be downloaded as `result.png` in your `Downloads` folder.
